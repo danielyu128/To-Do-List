@@ -15,8 +15,19 @@ body {
 .leftBar {
   background-color: gray;
   width: 20%;
-
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
+
+.leftBarHeader{
+  color: #0f766e;
+  font-size: 2rem;
+  font-weight: bold;
+  font-family: "Funnel Display", system-ui, -apple-system, sans-serif;
+}
+
 
 .rightSide {
 
