@@ -9,6 +9,7 @@ export default function loadLeftBar() {
 
     const leftBarHeader = document.createElement("div");
     leftBarHeader.classList.add("leftBarHeader");
+    leftBarHeader.textContent = "To Do"
 
     const leftBarCategories = document.createElement("div");
     leftBarCategories.classList.add("leftBarCategories");
@@ -38,6 +39,5 @@ export default function loadLeftBar() {
     leftBar.append(leftBarTop,leftBarButton)
 
     return {leftBar};
-
 
 }
