@@ -35,6 +35,12 @@ body {
 .content {
   display: flex;
   min-height: 100vh;
+  transition: filter 0.2s ease;
+}
+
+/* Blur background when modal is open */
+.modalOpen .content {
+  filter: blur(2px);
 }
 
 /* Shared icon styling */
@@ -387,6 +393,140 @@ body {
   }
 
   .taskGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Modal overlay */
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(15, 23, 42, 0.35);
+  backdrop-filter: blur(2px);
+  z-index: 50;
+}
+
+/* Respect the hidden attribute */
+.modalOverlay[hidden] {
+  display: none;
+}
+
+/* Modal wrapper keeps layout centered */
+.modalWrap {
+  width: min(90vw, 640px);
+}
+
+/* Modal card */
+.modal {
+  background: #fff;
+  border-radius: 16px;
+  padding: 24px 26px;
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.25);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* Respect hidden attribute on each modal */
+.modal[hidden] {
+  display: none;
+}
+
+.taskModal {
+  width: min(90vw, 640px);
+}
+
+/* Modal header */
+.modalHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.modalHeader h3 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.modalClose {
+  border: none;
+  background: transparent;
+  font-size: 28px;
+  line-height: 1;
+  color: #6b7280;
+  cursor: pointer;
+}
+
+/* Modal body */
+.modalBody {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #374151;
+}
+
+.field input,
+.field textarea,
+.field select {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 14px;
+  font-family: inherit;
+  outline: none;
+  background: #fff;
+}
+
+.field textarea {
+  resize: vertical;
+}
+
+.fieldRow {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+/* Modal actions */
+.modalActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.btn {
+  border: none;
+  padding: 10px 16px;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.btn.ghost {
+  background: #e5e7eb;
+  color: #374151;
+}
+
+.btn.primary {
+  background: #2f6f68;
+  color: #fff;
+}
+
+@media (max-width: 600px) {
+  .fieldRow {
     grid-template-columns: 1fr;
   }
 }

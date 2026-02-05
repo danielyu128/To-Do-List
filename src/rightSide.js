@@ -1,11 +1,17 @@
 import { createIcon } from "./icons.js";
+import { categories, tasks } from "./data.js";
 
-// Demo tasks to match the screenshot layout.
-const taskCards = [
-  { title: "Refactor CSS", date: "Feb 04", priority: "medium" },
-  { title: "Buy Groceries", date: "Feb 04", priority: "low" },
-  { title: "Push to GitHub", date: "Feb 03", priority: "high" },
-];
+// Resolve the icon for a given category label.
+function getCategoryIcon(label) {
+  const match = categories.find((category) => category.label === label);
+  return match ? match.icon : "clipboard";
+}
+
+// Filter tasks for a given category label.
+function getTasksForCategory(label) {
+  if (label === "All Tasks") return tasks;
+  return tasks.filter((task) => task.category === label);
+}
 
 // Top header bar with title and CTA.
 function buildTopBar() {
@@ -15,7 +21,8 @@ function buildTopBar() {
   // Title area.
   const titleWrap = document.createElement("div");
   titleWrap.classList.add("topBarTitle");
-  titleWrap.append(createIcon("clipboard", "titleIcon"));
+  let titleIcon = createIcon("clipboard", "titleIcon");
+  titleWrap.append(titleIcon);
 
   const titleText = document.createElement("h1");
   titleText.textContent = "All Tasks";
@@ -29,7 +36,13 @@ function buildTopBar() {
   addButton.innerHTML = `<span class="plus">+</span><span>Add Task</span>`;
 
   topBar.append(titleWrap, addButton);
-  return topBar;
+  return {
+    topBar,
+    titleText,
+    getTitleIcon: () => titleIcon,
+    setTitleIcon: (icon) => { titleIcon = icon; },
+    addButton,
+  };
 }
 
 // Single task card row.
@@ -89,10 +102,10 @@ function buildMainContent() {
   // Cards grid.
   const grid = document.createElement("div");
   grid.classList.add("taskGrid");
-  taskCards.forEach((task) => grid.append(buildTaskCard(task)));
+  tasks.forEach((task) => grid.append(buildTaskCard(task)));
 
   main.append(heading, sub, grid);
-  return main;
+  return { main, sub, grid };
 }
 
 // Footer with copyright and GitHub links.
@@ -137,6 +150,26 @@ export default function loadRightSide() {
   const rightSide = document.createElement("div");
   rightSide.classList.add("rightSide");
 
-  rightSide.append(buildTopBar(), buildMainContent(), buildFooter());
-  return { rightSide };
+  // Build the right-side sections once.
+  const { topBar, titleText, getTitleIcon, setTitleIcon, addButton } = buildTopBar();
+  const { main, sub, grid } = buildMainContent();
+  const footer = buildFooter();
+
+  // Public render function for category switching.
+  function renderCategory(label) {
+    const filtered = getTasksForCategory(label);
+    titleText.textContent = label;
+    const iconName = getCategoryIcon(label);
+    const newIcon = createIcon(iconName, "titleIcon");
+    const currentIcon = getTitleIcon();
+    currentIcon.replaceWith(newIcon);
+    setTitleIcon(newIcon);
+
+    sub.textContent = `${filtered.length} Tasks Remaining`;
+    grid.replaceChildren(...filtered.map(buildTaskCard));
+  }
+
+  // Assemble the final column.
+  rightSide.append(topBar, main, footer);
+  return { rightSide, renderCategory, addTaskButton: addButton };
 }

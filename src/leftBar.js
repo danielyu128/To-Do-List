@@ -1,16 +1,5 @@
 import { createIcon } from "./icons.js";
-
-// Sidebar core categories shown at the top of the menu.
-const coreCategories = [
-  { label: "All Tasks", icon: "clipboard", active: true },
-  { label: "Work", icon: "briefcase" },
-  { label: "Personal", icon: "user" },
-  { label: "Urgent", icon: "alert" },
-  { label: "Others", icon: "grid" },
-];
-
-// Placeholder projects list (static for now).
-const projects = ["Ranodm", "jfsdfds"];
+import { categories } from "./data.js";
 
 export default function loadLeftBar() {
 
@@ -31,12 +20,16 @@ export default function loadLeftBar() {
     const leftBarCategories = document.createElement("div");
     leftBarCategories.classList.add("leftBarCategories");
 
-    coreCategories.forEach((category) => {
+    // Track the buttons for wiring click handlers in index.js.
+    const categoryButtons = [];
+
+    categories.forEach((category, index) => {
       // Single category button.
       const item = document.createElement("button");
       item.type = "button";
       item.classList.add("leftBarItem");
-      if (category.active) item.classList.add("active");
+      if (index === 0) item.classList.add("active");
+      item.dataset.category = category.label;
 
       // Icon + label.
       const icon = createIcon(category.icon, "leftBarIcon");
@@ -45,29 +38,11 @@ export default function loadLeftBar() {
 
       item.append(icon, label);
       leftBarCategories.append(item);
-    });
-
-    // Projects list.
-    const leftBarProjects = document.createElement("div");
-    leftBarProjects.classList.add("leftBarProjects");
-
-    projects.forEach((project) => {
-      // Single project button.
-      const item = document.createElement("button");
-      item.type = "button";
-      item.classList.add("leftBarItem", "project");
-
-      // Icon + label.
-      const icon = createIcon("folder", "leftBarIcon");
-      const label = document.createElement("span");
-      label.textContent = project;
-
-      item.append(icon, label);
-      leftBarProjects.append(item);
+      categoryButtons.push(item);
     });
 
     // Assemble top section.
-    leftBarTop.append(leftBarHeader, leftBarCategories, leftBarProjects);
+    leftBarTop.append(leftBarHeader, leftBarCategories);
 
     // New category button (bottom).
     const leftBarButton = document.createElement("button");
@@ -79,6 +54,7 @@ export default function loadLeftBar() {
     // Final assembly.
     leftBar.append(leftBarTop, leftBarButton);
 
-    return {leftBar};
+    // Expose nodes used by index.js (routing + modal triggers).
+    return { leftBar, categoryButtons, newCategoryButton: leftBarButton };
 
 }

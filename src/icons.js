@@ -1,4 +1,5 @@
 // Icon registry: central place for inline SVG assets used in the UI.
+// Each icon is a simple inline SVG string.
 const icons = {
   clipboard: `
     <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
@@ -61,6 +62,7 @@ const icons = {
 };
 
 // Helper: returns a span wrapping the requested SVG icon.
+// Usage: createIcon("clipboard", "optionalClassName")
 export function createIcon(name, className = "") {
   const wrapper = document.createElement("span");
   wrapper.className = `icon ${className}`.trim();
