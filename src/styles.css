@@ -1,11 +1,14 @@
+/* Typography */
 @import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap");
 
+/* Reset */
 *,
 *::before,
 *::after {
   box-sizing: border-box;
 }
 
+/* Theme variables */
 :root {
   color-scheme: light;
   --bg: #f4f5f7;
@@ -20,6 +23,7 @@
   --radius: 14px;
 }
 
+/* Base */
 body {
   margin: 0;
   font-family: "Manrope", system-ui, -apple-system, sans-serif;
@@ -27,11 +31,13 @@ body {
   background: var(--bg);
 }
 
+/* App layout */
 .content {
   display: flex;
   min-height: 100vh;
 }
 
+/* Shared icon styling */
 .icon svg {
   width: 20px;
   height: 20px;
@@ -48,7 +54,7 @@ body {
   stroke: none;
 }
 
-/* Left bar */
+/* Left sidebar */
 .leftBar {
   background-color: var(--sidebar);
   width: 260px;
@@ -65,6 +71,7 @@ body {
   gap: 18px;
 }
 
+/* Brand title */
 .leftBarHeader {
   color: var(--accent);
   font-size: 28px;
@@ -79,6 +86,7 @@ body {
   gap: 6px;
 }
 
+/* Sidebar row item */
 .leftBarItem {
   border: none;
   background: transparent;
@@ -95,11 +103,13 @@ body {
   text-align: left;
 }
 
+/* Active highlight */
 .leftBarItem.active {
   background: var(--accent-soft);
   color: var(--accent);
 }
 
+/* Hover motion */
 .leftBarItem:hover {
   transform: translateX(2px);
   background: #eef1f4;
@@ -111,6 +121,7 @@ body {
   color: #6b7280;
 }
 
+/* New category button */
 .leftBarButton {
   border: 1px dashed var(--border);
   background: transparent;
@@ -122,13 +133,14 @@ body {
   transition: border 0.2s ease, color 0.2s ease, transform 0.2s ease;
 }
 
+/* New category hover */
 .leftBarButton:hover {
   border-color: var(--accent);
   color: var(--accent);
   transform: translateY(-1px);
 }
 
-/* Right side */
+/* Right column */
 .rightSide {
   flex: 1;
   display: flex;
@@ -136,6 +148,7 @@ body {
   min-width: 0;
 }
 
+/* Top bar */
 .topBar {
   height: 72px;
   background: var(--panel);
@@ -159,6 +172,7 @@ body {
   margin: 0;
 }
 
+/* Primary action button */
 .addTaskBtn {
   border: none;
   background: #2f6f68;
@@ -179,12 +193,14 @@ body {
   line-height: 1;
 }
 
+/* Button hover depth */
 .addTaskBtn:hover {
   background: #275f59;
   transform: translateY(-1px);
   box-shadow: var(--shadow);
 }
 
+/* Main content */
 .mainContent {
   flex: 1;
   padding: 28px 32px 16px;
@@ -201,6 +217,7 @@ body {
   color: var(--muted);
 }
 
+/* Task cards */
 .taskGrid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -208,6 +225,7 @@ body {
   max-width: 900px;
 }
 
+/* Card surface */
 .taskCard {
   background: var(--panel);
   border: 1px solid var(--border);
@@ -220,11 +238,13 @@ body {
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
+/* Lift on hover */
 .taskCard:hover {
   transform: translateY(-3px);
   box-shadow: var(--shadow);
 }
 
+/* Circular check control */
 .taskCheck {
   width: 34px;
   height: 34px;
@@ -238,6 +258,7 @@ body {
   transition: border 0.2s ease, color 0.2s ease, background 0.2s ease;
 }
 
+/* Check hover accent */
 .taskCheck:hover {
   border-color: var(--accent);
   color: var(--accent);
@@ -266,12 +287,14 @@ body {
   color: #6b7280;
 }
 
+/* Date group */
 .taskDate {
   display: inline-flex;
   align-items: center;
   gap: 6px;
 }
 
+/* Priority pill base */
 .priority {
   font-size: 11px;
   font-weight: 700;
@@ -280,6 +303,7 @@ body {
   text-transform: uppercase;
 }
 
+/* Priority color variants */
 .priority.low {
   background: #dcfce7;
   color: #15803d;
@@ -295,6 +319,7 @@ body {
   color: #b91c1c;
 }
 
+/* Footer */
 .appFooter {
   border-top: 1px solid var(--border);
   background: var(--panel);
@@ -322,11 +347,13 @@ body {
   transition: color 0.2s ease, transform 0.2s ease;
 }
 
+/* Footer link hover */
 .footerLink:hover {
   color: var(--accent);
   transform: translateY(-1px);
 }
 
+/* Responsive tweaks */
 @media (max-width: 900px) {
   .leftBar {
     width: 220px;
