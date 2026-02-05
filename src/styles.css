@@ -1,35 +1,365 @@
-/* styles.css */
-body {
-    height: 100%;
-    margin: 0;
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap");
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
-/* Main styling of page */
+:root {
+  color-scheme: light;
+  --bg: #f4f5f7;
+  --panel: #ffffff;
+  --sidebar: #f7f7f8;
+  --text: #1f2933;
+  --muted: #6b7280;
+  --accent: #0f766e;
+  --accent-soft: #daf5f1;
+  --border: #e5e7eb;
+  --shadow: 0 10px 20px rgba(15, 23, 42, 0.06);
+  --radius: 14px;
+}
+
+body {
+  margin: 0;
+  font-family: "Manrope", system-ui, -apple-system, sans-serif;
+  color: var(--text);
+  background: var(--bg);
+}
+
 .content {
   display: flex;
-  height: 100vh;
+  min-height: 100vh;
 }
 
+.icon svg {
+  width: 20px;
+  height: 20px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  display: block;
+}
+
+.githubIcon svg {
+  fill: currentColor;
+  stroke: none;
+}
 
 /* Left bar */
 .leftBar {
-  background-color: gray;
-  width: 20%;
-  padding: 20px;
+  background-color: var(--sidebar);
+  width: 260px;
+  padding: 28px 22px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  border-right: 1px solid var(--border);
 }
 
-.leftBarHeader{
-  color: #0f766e;
-  font-size: 2rem;
-  font-weight: bold;
-  font-family: "Funnel Display", system-ui, -apple-system, sans-serif;
+.leftBarTop {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
 }
 
+.leftBarHeader {
+  color: var(--accent);
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.4px;
+}
 
+.leftBarCategories,
+.leftBarProjects {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.leftBarItem {
+  border: none;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  color: #4b5563;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease;
+  text-align: left;
+}
+
+.leftBarItem.active {
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+.leftBarItem:hover {
+  transform: translateX(2px);
+  background: #eef1f4;
+  color: var(--text);
+}
+
+.leftBarItem.project {
+  font-weight: 500;
+  color: #6b7280;
+}
+
+.leftBarButton {
+  border: 1px dashed var(--border);
+  background: transparent;
+  padding: 12px 16px;
+  border-radius: 12px;
+  color: #6b7280;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.leftBarButton:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: translateY(-1px);
+}
+
+/* Right side */
 .rightSide {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
 
+.topBar {
+  height: 72px;
+  background: var(--panel);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 32px;
+}
 
+.topBarTitle {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #1f2933;
+}
+
+.topBarTitle h1 {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.addTaskBtn {
+  border: none;
+  background: #2f6f68;
+  color: #fff;
+  font-weight: 600;
+  padding: 10px 18px;
+  border-radius: 12px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.addTaskBtn .plus {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.addTaskBtn:hover {
+  background: #275f59;
+  transform: translateY(-1px);
+  box-shadow: var(--shadow);
+}
+
+.mainContent {
+  flex: 1;
+  padding: 28px 32px 16px;
+}
+
+.mainContent h2 {
+  margin: 0 0 6px 0;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.mainContent p {
+  margin: 0 0 24px 0;
+  color: var(--muted);
+}
+
+.taskGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 22px;
+  max-width: 900px;
+}
+
+.taskCard {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 18px 18px;
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  box-shadow: 0 6px 16px rgba(15, 23, 42, 0.04);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.taskCard:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow);
+}
+
+.taskCheck {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid #cbd5e1;
+  background: #f9fafb;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  color: #8b949e;
+  transition: border 0.2s ease, color 0.2s ease, background 0.2s ease;
+}
+
+.taskCheck:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: #f0fdfa;
+}
+
+.taskContent {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.taskTitle {
+  font-weight: 700;
+  font-size: 15px;
+  color: #374151;
+  text-decoration: line-through;
+  text-decoration-color: #9ca3af;
+}
+
+.taskMeta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.taskDate {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.priority {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 999px;
+  text-transform: uppercase;
+}
+
+.priority.low {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.priority.medium {
+  background: #fef3c7;
+  color: #b45309;
+}
+
+.priority.high {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.appFooter {
+  border-top: 1px solid var(--border);
+  background: var(--panel);
+  padding: 14px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #6b7280;
+  font-size: 13px;
+}
+
+.footerRight {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+
+.footerLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #3f5661;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.footerLink:hover {
+  color: var(--accent);
+  transform: translateY(-1px);
+}
+
+@media (max-width: 900px) {
+  .leftBar {
+    width: 220px;
+  }
+
+  .topBar {
+    padding: 0 20px;
+  }
+
+  .mainContent {
+    padding: 24px 20px 12px;
+  }
+
+  .appFooter {
+    padding: 12px 20px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+}
+
+@media (max-width: 720px) {
+  .content {
+    flex-direction: column;
+  }
+
+  .leftBar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .taskGrid {
+    grid-template-columns: 1fr;
+  }
 }

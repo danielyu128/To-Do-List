@@ -1,3 +1,15 @@
+import { createIcon } from "./icons.js";
+
+const coreCategories = [
+  { label: "All Tasks", icon: "clipboard", active: true },
+  { label: "Work", icon: "briefcase" },
+  { label: "Personal", icon: "user" },
+  { label: "Urgent", icon: "alert" },
+  { label: "Others", icon: "grid" },
+];
+
+const projects = ["Ranodm", "jfsdfds"];
+
 export default function loadLeftBar() {
 
     //Left Menu Bar Container
@@ -9,34 +21,50 @@ export default function loadLeftBar() {
 
     const leftBarHeader = document.createElement("div");
     leftBarHeader.classList.add("leftBarHeader");
-    leftBarHeader.textContent = "To Do"
+    leftBarHeader.textContent = "Do Me";
 
     const leftBarCategories = document.createElement("div");
     leftBarCategories.classList.add("leftBarCategories");
 
-    const leftBarCategory1 = document.createElement("div");
-    leftBarCategory1.classList.add("leftBarCategory1");
+    coreCategories.forEach((category) => {
+      const item = document.createElement("button");
+      item.type = "button";
+      item.classList.add("leftBarItem");
+      if (category.active) item.classList.add("active");
 
-    const leftBarCategory1Img = document.createElement("div");
-    leftBarCategory1Img.classList.add("leftBarCategory1Img");
+      const icon = createIcon(category.icon, "leftBarIcon");
+      const label = document.createElement("span");
+      label.textContent = category.label;
 
-    const leftBarCategory1Title = document.createElement("div");
-    leftBarCategory1Title.classList.add("leftBarCategory1Title");
-    leftBarCategory1Title.textContent = "All Tasks"
+      item.append(icon, label);
+      leftBarCategories.append(item);
+    });
 
-    leftBarCategory1.append(leftBarCategory1Img,leftBarCategory1Title);
+    const leftBarProjects = document.createElement("div");
+    leftBarProjects.classList.add("leftBarProjects");
 
-    leftBarCategories.append(leftBarCategory1);
+    projects.forEach((project) => {
+      const item = document.createElement("button");
+      item.type = "button";
+      item.classList.add("leftBarItem", "project");
 
-    leftBarTop.append(leftBarHeader,leftBarCategories);
+      const icon = createIcon("folder", "leftBarIcon");
+      const label = document.createElement("span");
+      label.textContent = project;
 
+      item.append(icon, label);
+      leftBarProjects.append(item);
+    });
+
+    leftBarTop.append(leftBarHeader, leftBarCategories, leftBarProjects);
 
     const leftBarButton = document.createElement("button");
     leftBarButton.classList.add("leftBarButton");
-    leftBarButton.textContent = "+ New Category"
+    leftBarButton.type = "button";
+    leftBarButton.textContent = "+ New Category";
 
 
-    leftBar.append(leftBarTop,leftBarButton)
+    leftBar.append(leftBarTop, leftBarButton);
 
     return {leftBar};
 
